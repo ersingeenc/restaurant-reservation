@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Restoran Rezervasyon Sistemi</title>
+    <meta charset="UTF-8">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 30px;
+            background-color: #f4f4f4;
+        }
+
+        h1, h2 {
+            color: #333;
+        }
+
+        form {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            width: 400px;
+            margin-bottom: 30px;
+        }
+
+        input, textarea, button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 8px;
+            margin-bottom: 15px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #2d89ef;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #1b5fa7;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+        }
+
+        table, th, td {
+            border: 1px solid #ccc;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: center;
+        }
+
+        a {
+            color: red;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Restoran Rezervasyon Sistemi</h1>
+
+<h2>Rezervasyon Ekle</h2>
+<form th:action="@{/save}" th:object="${reservation}" method="post">
+    <input type="text" th:field="*{customerName}" placeholder="Müşteri Adı" required>
+    <input type="text" th:field="*{phone}" placeholder="Telefon" required>
+    <input type="date" th:field="*{reservationDate}" required>
+    <input type="time" th:field="*{reservationTime}" required>
+    <input type="number" th:field="*{personCount}" placeholder="Kişi Sayısı" required>
+    <textarea th:field="*{note}" placeholder="Not"></textarea>
+    <button type="submit">Rezervasyon Kaydet</button>
+</form>
+
+<h2>Rezervasyon Listesi</h2>
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Müşteri</th>
+        <th>Telefon</th>
+        <th>Tarih</th>
+        <th>Saat</th>
+        <th>Kişi</th>
+        <th>Not</th>
+        <th>İşlem</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="r : ${reservations}">
+        <td th:text="${r.id}"></td>
+        <td th:text="${r.customerName}"></td>
+        <td th:text="${r.phone}"></td>
+        <td th:text="${r.reservationDate}"></td>
+        <td th:text="${r.reservationTime}"></td>
+        <td th:text="${r.personCount}"></td>
+        <td th:text="${r.note}"></td>
+        <td>
+            <a th:href="@{/delete/{id}(id=${r.id})}">Sil</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>
