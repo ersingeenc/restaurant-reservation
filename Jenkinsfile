@@ -28,7 +28,8 @@ pipeline {
 
         stage('Container Calistir') {
             steps {
-                bat 'docker run -d -p 8081:8081 --name restaurant-reservation-container restaurant-reservation'
+                 bat 'docker run -d -p 8082:8081 --name restaurant-reservation-container restaurant-reservation'
+
             }
         }
     }
